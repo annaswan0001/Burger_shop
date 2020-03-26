@@ -1,24 +1,27 @@
 import React from 'react';
-import logo from './logo.svg';
 import './App.css';
+
+
+//Components
+import BurgerBuilder from './views/BurgerBuilder/BurgerBuilder'
+import Logout from './views/Auth/Logout/Logout'
+
+
+const Orders = React.lazy(()=>{
+  return import ('./views/Orders/Orders')
+})
+
+const Checkout = React.lazy(()=>{
+  return import('./views/Checkout/Checkout')
+})
+
+const Auth = React.lazy(()=>{
+  return import('./views/Auth/Auth')
+})
 
 function App() {
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
     </div>
   );
 }
