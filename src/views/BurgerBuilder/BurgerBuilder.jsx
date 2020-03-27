@@ -41,12 +41,22 @@ export default class BurgerBuilder extends React.Component {
         this.setState({ingredients:newState, totalPrice:newPrice})}
     
 }
+
   render() {
+      let stateForDisabled = {...this.state.ingredients}
+
+      for(let key in stateForDisabled){
+        stateForDisabled[key] = stateForDisabled[key]<=0
+      }
+
     return (
       <div className={styles.content}>
         <Burger ingredients={this.state.ingredients} />
-        <BuildControls add={this.addIngredientHandler} delete={this.deleteIngredientHandler} />
-        {this.state.totalPrice}
+        <BuildControls 
+        disabled={stateForDisabled}
+        add={this.addIngredientHandler} 
+        delete={this.deleteIngredientHandler} />
+
       </div>
     );
   }

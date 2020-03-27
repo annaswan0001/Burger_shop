@@ -9,7 +9,7 @@
     padding: 10px 0;
 }
 
-/* .OrderButton {
+.OrderButton {
     background-color: #DAD735;
     outline: none;
     cursor: pointer;
@@ -48,4 +48,4 @@
     100% {
         transform: scale(1);
     }
-} */
+}

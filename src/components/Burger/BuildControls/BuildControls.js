@@ -1,7 +1,7 @@
 import React from "react";
 
 import classes from "./BuildControls.module.css";
-import BuildControl from './BuildControl/BuildControl'
+import BuildControl from "./BuildControl/BuildControl";
 
 const controls = [
   { label: "Salad", type: "salad" },
@@ -13,7 +13,13 @@ const controls = [
 const buildControls = props => (
   <div className={classes.BuildControls}>
     {controls.map(cntrl => (
-      <BuildControl add={()=>props.add(cntrl.type)}  delete={()=>props.delete(cntrl.type)}  label={cntrl.label} key={cntrl.type} />
+      <BuildControl
+        disabled= {props.disabled[cntrl.type]}
+        add={() => props.add(cntrl.type)}
+        delete={() => props.delete(cntrl.type)}
+        label={cntrl.label}
+        key={cntrl.type}
+      />
     ))}
   </div>
 );
