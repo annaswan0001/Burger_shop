@@ -2,6 +2,8 @@ import React, { useState } from "react";
 import styles from "./BurgerBuilder.module.css";
 import Burger from "../../components/Burger/Burger";
 import BuildControls from "../../components/Burger/BuildControls/BuildControls";
+import Modal from "../../components/UI/Modal/Modal";
+import OrderSummary from "../../components/Burger/OrderSummery/OrderSummery";
 
 const PRICES = {
   meat: 2.3,
@@ -18,10 +20,10 @@ export default class BurgerBuilder extends React.Component {
       salad: 0
     },
     totalPrice: 5,
-    purchaseble: false
+    purchaseble: false,
+    purchasing: false
   };
-  checkPurchaseble = (ingredientsForPurchase) => {
-    
+  checkPurchaseble = ingredientsForPurchase => {
     const summ = Object.keys(ingredientsForPurchase)
       .map(key => {
         return ingredientsForPurchase[key];
@@ -34,16 +36,13 @@ export default class BurgerBuilder extends React.Component {
     this.setState({ purchaseble: summ > 0 });
   };
   addIngredientHandler = type => {
-
-      const oldCount = this.state.ingredients[type];
-      const newCount = oldCount + 1;
-      const newState = { ...this.state.ingredients };
-      newState[type] = newCount;
-      const newPrice = this.state.totalPrice + PRICES[type];
-      this.setState({ ingredients: newState, totalPrice: newPrice });
-      this.checkPurchaseble(newState)
-    
-        
+    const oldCount = this.state.ingredients[type];
+    const newCount = oldCount + 1;
+    const newState = { ...this.state.ingredients };
+    newState[type] = newCount;
+    const newPrice = this.state.totalPrice + PRICES[type];
+    this.setState({ ingredients: newState, totalPrice: newPrice });
+    this.checkPurchaseble(newState);
   };
   deleteIngredientHandler = type => {
     if (this.state.ingredients[type] > 0) {
@@ -53,12 +52,17 @@ export default class BurgerBuilder extends React.Component {
       newState[type] = newCount;
       const newPrice = this.state.totalPrice - PRICES[type];
       this.setState({ ingredients: newState, totalPrice: newPrice });
-      this.checkPurchaseble(newState)
+      this.checkPurchaseble(newState);
     }
-
   };
 
+  purchaseHandler = () => {
+    this.setState({ purchasing: true });
+  };
 
+  purchaseCancel = () => {
+    this.setState({ purchasing: false });
+  };
   render() {
     let stateForDisabled = { ...this.state.ingredients };
 
@@ -68,7 +72,13 @@ export default class BurgerBuilder extends React.Component {
 
     return (
       <div className={styles.content}>
-        {console.log(this.state.purchaseble)}
+        {console.log(this.state.purchasing)}
+
+      
+          <Modal modalClosed={this.purchaseCancel} show={this.state.purchasing}>
+            <OrderSummary  ingredients={this.state.ingredients} />
+          </Modal>
+       
         <Burger ingredients={this.state.ingredients} />
         <BuildControls
           purchaseble={this.state.purchaseble}
@@ -76,6 +86,7 @@ export default class BurgerBuilder extends React.Component {
           disabled={stateForDisabled}
           add={this.addIngredientHandler}
           delete={this.deleteIngredientHandler}
+          purchaseHandler={this.purchaseHandler}
         />
       </div>
     );
