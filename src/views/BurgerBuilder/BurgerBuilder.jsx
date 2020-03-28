@@ -63,6 +63,10 @@ export default class BurgerBuilder extends React.Component {
   purchaseCancel = () => {
     this.setState({ purchasing: false });
   };
+
+  purchaseContinue = () => {
+    alert("Purchase!!!")
+  };
   render() {
     let stateForDisabled = { ...this.state.ingredients };
 
@@ -76,7 +80,12 @@ export default class BurgerBuilder extends React.Component {
 
       
           <Modal modalClosed={this.purchaseCancel} show={this.state.purchasing}>
-            <OrderSummary  ingredients={this.state.ingredients} />
+            <OrderSummary  
+            purchaseCanceled={this.purchaseCancel}
+            purchaseContinued={this.purchaseContinue}
+            price={this.state.totalPrice}
+            ingredients={this.state.ingredients} />
+       
           </Modal>
        
         <Burger ingredients={this.state.ingredients} />

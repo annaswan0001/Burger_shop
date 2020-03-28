@@ -22,7 +22,7 @@ const Auth = React.lazy(()=>{
 function App() {
   return (
     <div >
-      <Layot>Test</Layot>
+      <Layot><BurgerBuilder/></Layot>
     </div>
   );
 }

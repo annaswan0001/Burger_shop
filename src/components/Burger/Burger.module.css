@@ -1,14 +1,15 @@
-.burger{
+.burger {
     width: 100%;
-    text-align: center;
-    height:50px;
-    overflow: scroll;
     margin: auto;
+    height: 250px;
+    overflow: scroll;
+    text-align: center;
+    font-weight: bold;
     font-size: 1.2rem;
 }
 
 @media (min-width: 500px) and (min-height: 400px) {
-     .burger{
+    .burger {
         width: 350px;
         height: 300px;
     }
@@ -26,4 +27,4 @@
         width: 700px;
         height: 600px;
     }
-} 
+}
