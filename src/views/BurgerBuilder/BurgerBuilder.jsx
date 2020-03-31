@@ -4,6 +4,7 @@ import Burger from "../../components/Burger/Burger";
 import BuildControls from "../../components/Burger/BuildControls/BuildControls";
 import Modal from "../../components/UI/Modal/Modal";
 import OrderSummary from "../../components/Burger/OrderSummery/OrderSummery";
+import axios from "../../axios-orders";
 
 const PRICES = {
   meat: 2.3,
@@ -65,7 +66,24 @@ export default class BurgerBuilder extends React.Component {
   };
 
   purchaseContinue = () => {
-    alert("Purchase!!!")
+    const order = {
+      ingredients: this.state.ingredients,
+      price: this.state.totalPrice,
+      customer: {
+        name: "Anna",
+        surname: "Samoylenko",
+        adress: {
+          adress: "Lva Tostogo",
+          zipCode: "09100",
+          country: "Ukraine"
+        },
+        email: "annaswan@ukr.net",
+        deliveryMrthod: "fastest"
+      }
+    };
+    axios.post("./orders.json", order)
+    .then(resp=>console.log(resp))
+    .catch(err=>console.log(err))
   };
   render() {
     let stateForDisabled = { ...this.state.ingredients };
@@ -78,16 +96,15 @@ export default class BurgerBuilder extends React.Component {
       <div className={styles.content}>
         {console.log(this.state.purchasing)}
 
-      
-          <Modal modalClosed={this.purchaseCancel} show={this.state.purchasing}>
-            <OrderSummary  
+        <Modal modalClosed={this.purchaseCancel} show={this.state.purchasing}>
+          <OrderSummary
             purchaseCanceled={this.purchaseCancel}
             purchaseContinued={this.purchaseContinue}
             price={this.state.totalPrice}
-            ingredients={this.state.ingredients} />
-       
-          </Modal>
-       
+            ingredients={this.state.ingredients}
+          />
+        </Modal>
+
         <Burger ingredients={this.state.ingredients} />
         <BuildControls
           purchaseble={this.state.purchaseble}

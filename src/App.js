@@ -3,7 +3,7 @@ import './App.css';
 
 
 //Components
-import Layot from './components/Layot/Layot'
+import Layot from './HOC/Layot/Layot'
 import BurgerBuilder from './views/BurgerBuilder/BurgerBuilder'
 import Logout from './views/Auth/Logout/Logout'
 

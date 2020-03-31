@@ -1,7 +1,7 @@
 import React from "react";
 import BurgerBuilder from "../../views/BurgerBuilder/BurgerBuilder";
 import Toolbar from "../../components/Navigation/Toolbar/Toolbar";
-import SideDrawer from "../Navigation/SideDrawer/SideDrawer";
+import SideDrawer from "../../components/Navigation/SideDrawer/SideDrawer";
 import classes from "./Layout.module.css";
 
 export default class Layot extends React.Component {
