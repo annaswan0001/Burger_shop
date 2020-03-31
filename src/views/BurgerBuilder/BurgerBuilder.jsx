@@ -6,6 +6,7 @@ import Modal from "../../components/UI/Modal/Modal";
 import OrderSummary from "../../components/Burger/OrderSummery/OrderSummery";
 import axios from "../../axios-orders";
 import Spinner from '../../components/UI/Spinner/Spinner'
+import withError from '../../HOC/WithErrorHandler'
 
 const PRICES = {
   meat: 2.3,
@@ -13,7 +14,7 @@ const PRICES = {
   cheese: 1,
   salad: 1
 };
-export default class BurgerBuilder extends React.Component {
+class BurgerBuilder extends React.Component {
   state = {
     ingredients: {
       meat: 0,
@@ -86,12 +87,12 @@ export default class BurgerBuilder extends React.Component {
     };
     axios.post("./orders.json", order)
     .then(resp=>{
-      this.setState({spinner:false})
+      this.setState({spinner:false, purchasing: false })
       console.log(resp)
     }
     )
     .catch(err=>{
-      this.setState({spinner:false})
+      this.setState({spinner:false,purchasing: false })
       console.log(err)})
   };
   render() {
@@ -114,7 +115,8 @@ export default class BurgerBuilder extends React.Component {
       <div className={styles.content}>
         {console.log(this.state.purchasing)}
 
-        <Modal modalClosed={this.purchaseCancel} show={this.state.purchasing}>
+        <Modal modalClosed={this.purchaseCancel} 
+        show={this.state.purchasing}>
           {orderSummery}
         </Modal>
 
@@ -131,3 +133,4 @@ export default class BurgerBuilder extends React.Component {
     );
   }
 }
+export default withError(BurgerBuilder, axios)
