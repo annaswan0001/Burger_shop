@@ -8,11 +8,9 @@ export default class Modal extends React.Component {
     super(props);
   }
 shouldComponentUpdate(nextProps,nexState){
-    return nextProps.show != this.props.show
+    return nextProps.show != this.props.show || nextProps.children !== this.props.children
 }
-// componentWillUpdate(){
-//     console.log("update")
-// }
+
   render() {
     const {
       props,
