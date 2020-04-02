@@ -1,6 +1,7 @@
 import React from "react";
 import "./App.css";
 import {Route, Switch} from 'react-router-dom'
+import Orders from './views/Orders/Orders'
 
 
 
@@ -26,6 +27,7 @@ function App() {
       <Layot>
         <Switch>
         <Route exact path="/" component={BurgerBuilder} />
+        <Route path="/orders" component={Orders} />
         <Route path="/checkout" component={Checkout}/>
       
         </Switch>
