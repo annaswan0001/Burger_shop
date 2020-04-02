@@ -24,7 +24,7 @@ class BurgerBuilder extends React.Component {
     error: false
   };
   componentDidMount() {
-    console.log(this.props.history)
+    console.log(this.props.history);
     axios
       .get("https://burgershop-588e7.firebaseio.com/ingredients.json")
       .then(res => {
@@ -104,7 +104,16 @@ class BurgerBuilder extends React.Component {
     //     this.setState({ spinner: false, purchasing: false, error: true });
     //     console.log(err);
     //   });
-    this.props.history.push('/checkout')
+   
+    const queryParams = [];
+    for (let i in this.state.ingredients){
+      queryParams.push(encodeURIComponent(i)+"="+encodeURIComponent(this.state.ingredients[i]))
+    }
+    const queryString = queryParams.join("&")
+    this.props.history.push({
+      pathname:"/checkout",
+      search:"?" + queryString
+    })
   };
   render() {
     let stateForDisabled = { ...this.state.ingredients };

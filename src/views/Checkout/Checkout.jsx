@@ -2,9 +2,19 @@ import React from 'react'
 import CheckoutSummary from '../../components/Order/CheckoutSummary/CheckoutSummary'
 
 export default class Checkout extends React.Component {
-    constructor(props) {
-        super(props);
-    }
+   state={
+       ingredients:[]
+   }
+   componentDidMount() {
+       const query = new URLSearchParams(this.props.location.search)
+       const ingredients={}
+       for(let [key, value] of query.entries()){
+            ingredients[key]= +value
+       }
+       this.setState({ingredients})
+   }
+   
+    
     checkoutCancelHandler=()=>{
         this.props.history.goBack()
     }
@@ -16,7 +26,10 @@ export default class Checkout extends React.Component {
             <div>
                 <CheckoutSummary
                 checkoutCancelled={this.checkoutCancelHandler}
-                checkoutContinued={this.checkoutContinueHandler}/>
+                checkoutContinued={this.checkoutContinueHandler}
+                ingredients={this.state.ingredients}
+                />
+                
             </div>
         )
     }
