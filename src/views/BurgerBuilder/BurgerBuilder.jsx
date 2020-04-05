@@ -7,6 +7,8 @@ import OrderSummary from "../../components/Burger/OrderSummery/OrderSummery";
 import axios from "../../axios-orders";
 import Spinner from "../../components/UI/Spinner/Spinner";
 import withError from "../../HOC/WithErrorHandler";
+import {connect} from 'react-redux'
+import {addIngredient, removeIngredient} from '../../store/actions/action'
 
 const PRICES = {
   meat: 2.3,
@@ -48,15 +50,15 @@ class BurgerBuilder extends React.Component {
 
     this.setState({ purchaseble: summ > 0 });
   };
-  addIngredientHandler = type => {
-    const oldCount = this.state.ingredients[type];
-    const newCount = oldCount + 1;
-    const newState = { ...this.state.ingredients };
-    newState[type] = newCount;
-    const newPrice = this.state.totalPrice + PRICES[type];
-    this.setState({ ingredients: newState, totalPrice: newPrice });
-    this.checkPurchaseble(newState);
-  };
+  // addIngredientHandler = type => {
+  //   const oldCount = this.state.ingredients[type];
+  //   const newCount = oldCount + 1;
+  //   const newState = { ...this.state.ingredients };
+  //   newState[type] = newCount;
+  //   const newPrice = this.state.totalPrice + PRICES[type];
+  //   this.setState({ ingredients: newState, totalPrice: newPrice });
+  //   this.checkPurchaseble(newState);
+  // };
   deleteIngredientHandler = type => {
     if (this.state.ingredients[type] > 0) {
       const oldCount = this.state.ingredients[type];
@@ -90,7 +92,7 @@ class BurgerBuilder extends React.Component {
     })
   };
   render() {
-    let stateForDisabled = { ...this.state.ingredients };
+    let stateForDisabled = { ...this.props.ingredients };
 
     for (let key in stateForDisabled) {
       stateForDisabled[key] = stateForDisabled[key] <= 0;
@@ -101,10 +103,10 @@ class BurgerBuilder extends React.Component {
         purchaseCanceled={this.purchaseCancel}
         purchaseContinued={this.purchaseContinue}
         price={this.state.totalPrice}
-        ingredients={this.state.ingredients}
+        ingredients={this.props.ingredients}
       />
     );
-    if (this.state.spinner || !this.state.ingredients) {
+    if (this.state.spinner || !this.props.ingredients) {
       orderSummery = <Spinner />;
     }
 
@@ -114,16 +116,16 @@ class BurgerBuilder extends React.Component {
       <Spinner />
     );
 
-    if (this.state.ingredients) {
+    if (this.props.ingredients) {
       burger = (
         <React.Fragment>
-          <Burger ingredients={this.state.ingredients} />
+          <Burger ingredients={this.props.ingredients} />
           <BuildControls
             purchaseble={this.state.purchaseble}
             price={this.state.totalPrice}
             disabled={stateForDisabled}
-            add={this.addIngredientHandler}
-            delete={this.deleteIngredientHandler}
+            add={this.props.addIngredient}
+            delete={this.props.removeIngredient}
             purchaseHandler={this.purchaseHandler}
           />
         </React.Fragment>
@@ -142,4 +144,9 @@ class BurgerBuilder extends React.Component {
     );
   }
 }
-export default withError(BurgerBuilder, axios);
+const mapStateToProps= (state) =>({
+  ingredients:state.ingredients
+})
+
+
+export default connect(mapStateToProps, {addIngredient, removeIngredient})(withError(BurgerBuilder, axios));
