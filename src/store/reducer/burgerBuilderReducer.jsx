@@ -9,7 +9,7 @@ const PRICES = {
   };
 
 const initialState = {
-  ingredients: {},
+  ingredients: null,
   totalPrice: 5,
   spinner: false,
   error: false
@@ -46,13 +46,21 @@ export default (state = initialState, action) => {
               meat:action.ingredients.meat
           },
           totalPrice:5,
-          error:true
+          error:true,
+          spinner:false
         };
         case actionTypes.FETCH_INGREDIENT_FAILED:
           return {
             ...state,
-            error:true
+            error:true,
+            spinner:false
           };
+        case actionTypes.FETCH_INGREDIENT:
+            return {
+              ...state,
+              error:false,
+              spinner:true
+            };
     default:
       return state;
   }

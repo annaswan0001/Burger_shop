@@ -9,15 +9,14 @@ import Spinner from "../../components/UI/Spinner/Spinner";
 import withError from "../../HOC/WithErrorHandler";
 import {connect} from 'react-redux'
 import {addIngredient,initIngredients, removeIngredient} from '../../store/actions/burgerBuilderAction'
-
+import {purchaseInit} from '../../store/actions/orderAction'
 class BurgerBuilder extends React.Component {
   state = {
     purchasing: false,
-    spinner: false,
-    error: false
   };
   componentDidMount() {
     this.props.initIngredients()
+   
   }
 
   checkPurchaseble = ingredientsForPurchase => {
@@ -42,6 +41,7 @@ class BurgerBuilder extends React.Component {
 
   purchaseContinue = () => {
     this.props.history.push("/checkout")
+    this.props.purchaseInit()
   };
   render() {
     let stateForDisabled = { ...this.props.ingredients };
@@ -58,11 +58,15 @@ class BurgerBuilder extends React.Component {
         ingredients={this.props.ingredients}
       />
     );
-    if (this.state.spinner || !this.props.ingredients) {
+
+    if (this.props.spinner || !this.props.ingredients) {
       orderSummery = <Spinner />;
     }
 
-    let burger = this.props.error ? (
+
+    let burger = this.props.spinner ? <Spinner /> : null
+
+    burger = this.props.error ? (
       <div>Ingredients cant be loaded</div>
     ) : (
       <Spinner />
@@ -97,10 +101,11 @@ class BurgerBuilder extends React.Component {
   }
 }
 const mapStateToProps= (state) =>({
-  ingredients:state.ingredients,
-  totalPrice:state.totalPrice,
-  error:state.error
+  ingredients:state.burgerBuilder.ingredients,
+  totalPrice:state.burgerBuilder.totalPrice,
+  error:state.burgerBuilder.error,
+  spinner:state.burgerBuilder.spinner
 })
 
 
-export default connect(mapStateToProps, {initIngredients, addIngredient, removeIngredient})(withError(BurgerBuilder, axios));
+export default connect(mapStateToProps, {purchaseInit,initIngredients, addIngredient, removeIngredient})(withError(BurgerBuilder, axios));

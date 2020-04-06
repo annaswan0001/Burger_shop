@@ -12,24 +12,33 @@ export const removeIngredient = (igredientName) => ({
     igredientName,
   });
   
-
-export const initIngredients = ()=> (dispatch)=>{
-  axios
-  .get("https://burgershop-588e7.firebaseio.com/ingredients.json")
-  .then(res => {
-    dispatch(setIngredients(res.data ))
+  export const setIngredients = (ingredients) => ({
+    type: actionsType.SET_INGREDIENTS,
+    ingredients
   })
-  .catch(err => {
-    dispatch(fatchIngredientFailed())
-  });
+  
+  export const fetchIngredientFailed = () => ({
+    type: actionsType.FETCH_INGREDIENT_FAILED,
+  })
+  
+  export const fetchIngredient = () => ({
+    type: actionsType.FETCH_INGREDIENT,
+  })
+export const initIngredients = ()=> (dispatch)=>{
+  
+  dispatch(fetchIngredient())
+  
+
+    axios
+    .get("https://burgershop-588e7.firebaseio.com/ingredients.json")
+    .then(res => {
+      dispatch(setIngredients(res.data ))
+    })
+    .catch(err => {
+      dispatch(fetchIngredientFailed())
+    });
+ 
+
 }
 
-export const setIngredients = (ingredients) => ({
-  type: actionsType.SET_INGREDIENTS,
-  ingredients
-})
-
-export const fatchIngredientFailed = () => ({
-  type: actionsType.FETCH_INGREDIENT_FAILED,
-})
 
