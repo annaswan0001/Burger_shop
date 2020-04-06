@@ -8,28 +8,16 @@ import axios from "../../axios-orders";
 import Spinner from "../../components/UI/Spinner/Spinner";
 import withError from "../../HOC/WithErrorHandler";
 import {connect} from 'react-redux'
-import {addIngredient, removeIngredient} from '../../store/actions/action'
+import {addIngredient,initIngredients, removeIngredient} from '../../store/actions/burgerBuilderAction'
 
 class BurgerBuilder extends React.Component {
   state = {
-    ingredients: null,
-    totalPrice: 5,
-    purchaseble: false,
     purchasing: false,
     spinner: false,
     error: false
   };
   componentDidMount() {
-    console.log(this.props.history);
-    axios
-      .get("https://burgershop-588e7.firebaseio.com/ingredients.json")
-      .then(res => {
-        this.setState({ ingredients: res.data });
-        console.log(res.data);
-      })
-      .catch(err => {
-        this.setState({ error: true });
-      });
+    this.props.initIngredients()
   }
 
   checkPurchaseble = ingredientsForPurchase => {
@@ -40,9 +28,7 @@ class BurgerBuilder extends React.Component {
       .reduce((arr, el) => {
         return arr + el;
       }, 0);
-    console.log(summ);
-
-    this.setState({ purchaseble: summ > 0 });
+    return summ > 0;
   };
 
 
@@ -55,16 +41,7 @@ class BurgerBuilder extends React.Component {
   };
 
   purchaseContinue = () => {
-    const queryParams = [];
-    for (let i in this.state.ingredients){
-      queryParams.push(encodeURIComponent(i)+"="+encodeURIComponent(this.state.ingredients[i]))
-    }
-    queryParams.push("price="+this.state.totalPrice)
-    const queryString = queryParams.join("&")
-    this.props.history.push({
-      pathname:"/checkout",
-      search:"?" + queryString
-    })
+    this.props.history.push("/checkout")
   };
   render() {
     let stateForDisabled = { ...this.props.ingredients };
@@ -85,7 +62,7 @@ class BurgerBuilder extends React.Component {
       orderSummery = <Spinner />;
     }
 
-    let burger = this.state.error ? (
+    let burger = this.props.error ? (
       <div>Ingredients cant be loaded</div>
     ) : (
       <Spinner />
@@ -96,7 +73,7 @@ class BurgerBuilder extends React.Component {
         <React.Fragment>
           <Burger ingredients={this.props.ingredients} />
           <BuildControls
-            purchaseble={this.state.purchaseble}
+            purchaseble={this.checkPurchaseble(this.props.ingredients)}
             price={this.props.totalPrice}
             disabled={stateForDisabled}
             add={this.props.addIngredient}
@@ -121,8 +98,9 @@ class BurgerBuilder extends React.Component {
 }
 const mapStateToProps= (state) =>({
   ingredients:state.ingredients,
-  totalPrice:state.totalPrice
+  totalPrice:state.totalPrice,
+  error:state.error
 })
 
 
-export default connect(mapStateToProps, {addIngredient, removeIngredient})(withError(BurgerBuilder, axios));
+export default connect(mapStateToProps, {initIngredients, addIngredient, removeIngredient})(withError(BurgerBuilder, axios));

@@ -9,13 +9,10 @@ const PRICES = {
   };
 
 const initialState = {
-  ingredients: {
-    salad: 0,
-    meat: 0,
-    bacon: 0,
-    cheese: 0,
-  },
+  ingredients: {},
   totalPrice: 5,
+  spinner: false,
+  error: false
 };
 
 export default (state = initialState, action) => {
@@ -39,6 +36,23 @@ export default (state = initialState, action) => {
         },
         totalPrice:state.totalPrice - PRICES[action.igredientName]
       };
+      case actionTypes.SET_INGREDIENTS:
+        return {
+          ...state,
+          ingredients:{
+              salad:action.ingredients.salad, //для сохранения последовательности выводы элементов бургера = харкодим, а не забрасиваем обьект
+              bacon:action.ingredients.bacon,
+              cheese:action.ingredients.cheese,
+              meat:action.ingredients.meat
+          },
+          totalPrice:5,
+          error:true
+        };
+        case actionTypes.FETCH_INGREDIENT_FAILED:
+          return {
+            ...state,
+            error:true
+          };
     default:
       return state;
   }
