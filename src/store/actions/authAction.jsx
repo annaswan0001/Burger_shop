@@ -11,7 +11,7 @@ export const authSuccess = (idToken, userId) => {
   return {
     type: actionTypes.AUTH_SUCCESS,
     idToken,
-    userId
+    userId,
   };
 };
 
@@ -20,6 +20,15 @@ export const authFail = (error) => {
     type: actionTypes.AUTH_FAIL,
     error: error,
   };
+};
+
+export const authLogout = () => ({
+  type: actionTypes.AUTH_LOGOUT,
+});
+export const checkAuthTimeout = (expirationTime) => (dispatch) => {
+  setTimeout(() => {
+    dispatch(authLogout())
+  }, expirationTime * 1000);
 };
 
 export const auth = (email, password, isSignUp) => {
@@ -40,8 +49,8 @@ export const auth = (email, password, isSignUp) => {
       .post(url, data)
       .then((response) => {
         console.log(response);
-        dispatch(authSuccess(response.data.idToken,response.data.localId));
-    
+        dispatch(authSuccess(response.data.idToken, response.data.localId));
+        dispatch(checkAuthTimeout(response.data.expiresIn));
       })
       .catch((err) => {
         dispatch(authFail(err.response.data.error));

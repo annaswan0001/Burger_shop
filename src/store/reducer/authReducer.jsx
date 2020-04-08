@@ -15,6 +15,8 @@ export default (state = initialState, action) => {
 
     case actionTypes.AUTH_FAIL:
       return { ...state, loading:false, error:action.error };
+    case actionTypes.AUTH_LOGOUT:
+      return { ...state,  token:null, userId:null};
     default:
       return state;
   }
