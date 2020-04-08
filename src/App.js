@@ -9,7 +9,8 @@ import Orders from './views/Orders/Orders'
 import Layot from "./HOC/Layot/Layot";
 import BurgerBuilder from "./views/BurgerBuilder/BurgerBuilder";
 import Checkout from './views/Checkout/Checkout'
-import Logout from "./views/Auth/Logout/Logout";
+import Logout from "./views/Auth/Logout/Logout"
+import Auth from './views/Auth/Auth';
 
 // const Orders = React.lazy(() => {
 //   return import("./views/Orders/Orders");
@@ -29,6 +30,7 @@ function App() {
         <Route exact path="/" component={BurgerBuilder} />
         <Route path="/orders" component={Orders} />
         <Route path="/checkout" component={Checkout}/>
+        <Route path="/auth" component={Auth}/>
       
         </Switch>
       </Layot>

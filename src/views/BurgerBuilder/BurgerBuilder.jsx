@@ -14,8 +14,12 @@ class BurgerBuilder extends React.Component {
   state = {
     purchasing: false,
   };
+  _isMounted = false;
+
   componentDidMount() {
+    this._isMounted = true;
     this.props.initIngredients()
+  
    
   }
 
@@ -40,9 +44,15 @@ class BurgerBuilder extends React.Component {
   };
 
   purchaseContinue = () => {
-    this.props.history.push("/checkout")
     this.props.purchaseInit()
+    this.props.history.push("/checkout")
+    
   };
+
+    componentWillUnmount() {
+      this._isMounted = false;
+    }
+
   render() {
     let stateForDisabled = { ...this.props.ingredients };
 
