@@ -3,8 +3,9 @@ import BurgerBuilder from "../../views/BurgerBuilder/BurgerBuilder";
 import Toolbar from "../../components/Navigation/Toolbar/Toolbar";
 import SideDrawer from "../../components/Navigation/SideDrawer/SideDrawer";
 import classes from "./Layout.module.css";
+import { connect } from "react-redux";
 
-export default class Layot extends React.Component {
+class Layot extends React.Component {
   state = {
     showSideDrawer: false
   };
@@ -24,11 +25,19 @@ export default class Layot extends React.Component {
     return (
       <React.Fragment>
         <div>
-          <Toolbar clicked={this.handleSideDrawer}/>
-          <SideDrawer open={this.state.showSideDrawer} handleSideDrawer={this.handleSideDrawer} />
+          <Toolbar 
+          token={this.props.token}
+          clicked={this.handleSideDrawer}/>
+          <SideDrawer token={this.props.token} open={this.state.showSideDrawer} handleSideDrawer={this.handleSideDrawer} />
         </div>
         <main className={classes.Content}>{props.children}</main>
       </React.Fragment>
     );
   }
 }
+
+const mapStateToProps = (state) =>({
+token: state.auth.token !== null
+})
+
+export default connect(mapStateToProps, null)(Layot)

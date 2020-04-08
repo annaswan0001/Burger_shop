@@ -18,7 +18,7 @@ export default function SideDrawer(props) {
           <Logo />
         </div>
         <nav>
-          <NavigationItems />
+          <NavigationItems token ={props.token}/>
         </nav>
       </div>
     </React.Fragment>

@@ -31,7 +31,7 @@ function App() {
         <Route path="/orders" component={Orders} />
         <Route path="/checkout" component={Checkout}/>
         <Route path="/auth" component={Auth}/>
-      
+        <Route path="/logout" component={Logout}/>
         </Switch>
       </Layot>
     </div>
