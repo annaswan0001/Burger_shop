@@ -19,8 +19,7 @@ class BurgerBuilder extends React.Component {
   componentDidMount() {
     this._isMounted = true;
     this.props.initIngredients()
-  
-   
+
   }
 
   checkPurchaseble = ingredientsForPurchase => {

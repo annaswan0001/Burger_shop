@@ -145,7 +145,7 @@ class ContactData extends Component {
             orderData: formData
         }
         if(order.ingredients){
-            this.props.purchaseBurgerStart(order)
+            this.props.purchaseBurgerStart(order, this.props.token)
         }
        
             this.props.history.push('/');
@@ -192,7 +192,8 @@ class ContactData extends Component {
 const mapStateToProps = (state) =>({
     ingredients:state.burgerBuilder.ingredients,
     totalPrice:state.burgerBuilder.totalPrice,
-    loading:state.order.loading
+    loading:state.order.loading,
+    token: state.auth.token
   
   })
 export default connect(mapStateToProps,{purchaseBurgerStart})(WithError(ContactData,axios));

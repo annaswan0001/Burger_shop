@@ -17,9 +17,11 @@ const checkoutSummary = (props) => {
                 btnType="Danger"
                 clicked={props.checkoutCancelled}
                 >CANCEL</Button>
+                {console.log(props.checkoutContinued)}
             <Button 
                 btnType="Success"
                 clicked={props.checkoutContinued}
+                // clicked={alert("hello")}
                 >CONTINUE</Button>
         </div>
     );
