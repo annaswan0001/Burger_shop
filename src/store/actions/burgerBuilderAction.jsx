@@ -41,4 +41,8 @@ export const initIngredients = ()=> (dispatch)=>{
 
 }
 
+export const reseteIngredients = () => ({
+  type: actionsType.RESET_INGREDIENTS,
+})
+
 

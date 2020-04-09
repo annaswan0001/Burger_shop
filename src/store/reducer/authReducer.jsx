@@ -23,8 +23,6 @@ export default (state = initialState, action) => {
       return { ...state, loading: false, error: action.error };
     case actionTypes.AUTH_LOGOUT:
       return { ...state, token: null, userId: null };
-    case actionTypes.AUTH_LOGOUT:
-      return { ...state, redirectPath:action.path};
     default:
       return state;
   }

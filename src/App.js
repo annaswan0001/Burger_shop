@@ -1,8 +1,9 @@
 import React from "react";
 import "./App.css";
-import {Route, Switch} from 'react-router-dom'
+import {Route, Switch,Redirect} from 'react-router-dom'
 import Orders from './views/Orders/Orders'
-
+import {connect} from 'react-redux'
+import {authCheckState} from './store/actions/authAction'
 
 
 //Components
@@ -22,20 +23,46 @@ import Auth from './views/Auth/Auth';
 //   return import("./views/Auth/Auth");
 // });
 
-function App() {
-  return (
-    <div>
-      <Layot>
-        <Switch>
+class App extends React.Component {
+  componentDidMount() {
+    this.props.authCheckState();
+    console.log("app")
+
+  }
+  
+
+  render() {
+    let routes = (
+      <Switch><Route exact path="/" component={BurgerBuilder} />
+    <Route path="/auth" component={Auth}/>
+
+    <Redirect to="/"/>
+    </Switch>
+    )
+
+    if(this.props.token){
+      routes =(   <Switch>
         <Route exact path="/" component={BurgerBuilder} />
         <Route path="/orders" component={Orders} />
         <Route path="/checkout" component={Checkout}/>
-        <Route path="/auth" component={Auth}/>
         <Route path="/logout" component={Logout}/>
-        </Switch>
-      </Layot>
-    </div>
-  );
+        <Route path="/auth" component={Auth}/>
+        <Redirect to="/"/>
+        </Switch>)
+    }
+    return (
+      <div>
+        <Layot>
+         {routes}
+        </Layot>
+      </div>
+    );
+  }
 }
+const mapStateToProps = (state) => ({
+  token:state.auth.token !== null
+})
 
-export default App;
+
+
+export default connect(mapStateToProps,{authCheckState})(App);

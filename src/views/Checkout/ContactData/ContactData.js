@@ -7,6 +7,7 @@ import axios from '../../../axios-orders';
 import WithError from '../../../HOC/WithErrorHandler'
 import {connect} from 'react-redux'
 import {purchaseBurgerStart} from '../../../store/actions/orderAction'
+import {reseteIngredients} from '../../../store/actions/burgerBuilderAction'
 
 class ContactData extends Component {
     state = {
@@ -142,13 +143,15 @@ class ContactData extends Component {
         const order = {
             ingredients: this.props.ingredients,
             price: this.props.totalPrice,
-            orderData: formData
+            orderData: formData,
+            userId: this.props.userId
         }
         if(order.ingredients){
             this.props.purchaseBurgerStart(order, this.props.token)
         }
-       
+       this.props.reseteIngredients()
             this.props.history.push('/');
+
     }
 
     render () {
@@ -193,7 +196,8 @@ const mapStateToProps = (state) =>({
     ingredients:state.burgerBuilder.ingredients,
     totalPrice:state.burgerBuilder.totalPrice,
     loading:state.order.loading,
-    token: state.auth.token
+    token: state.auth.token,
+    userId:state.auth.userId
   
   })
-export default connect(mapStateToProps,{purchaseBurgerStart})(WithError(ContactData,axios));
+export default connect(mapStateToProps,{purchaseBurgerStart,reseteIngredients})(WithError(ContactData,axios));
