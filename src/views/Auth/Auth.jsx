@@ -4,9 +4,9 @@ import { connect } from "react-redux";
 import Input from "../../components/UI/Input/Input";
 import Button from "../../components/UI/Button/Button";
 import classes from "./Auth.module.css";
-import { auth, authFail } from "../../store/actions/authAction";
-import Spinner from '../../components/UI/Spinner/Spinner'
-import {Redirect} from 'react-router-dom'
+import { auth, setAuthRedirectPath } from "../../store/actions/authAction";
+import Spinner from "../../components/UI/Spinner/Spinner";
+import { Redirect } from "react-router-dom";
 
 class Auth extends Component {
   state = {
@@ -42,6 +42,11 @@ class Auth extends Component {
     },
     isSignUp: true,
   };
+componentDidMount() {
+  if(!this.props.buildingBuilder && this.props.redirectPath!=="/"){
+    setAuthRedirectPath("/")
+  }
+}
 
   checkValidity(value, rules) {
     let isValid = true;
@@ -95,20 +100,18 @@ class Auth extends Component {
     this.props.onAuth(
       this.state.controls.email.value,
       this.state.controls.password.value,
-      this.state.isSignUp,
+      this.state.isSignUp
     );
   };
   switchModeHandler = () => {
-
     this.setState((prevState) => {
       return { isSignUp: !prevState.isSignUp };
     });
   };
   render() {
-
-    let authRedirect = null
-    if(this.props.token){
-      authRedirect = <Redirect to="/"/>
+    let authRedirect = null;
+    if (this.props.token) {
+      authRedirect = <Redirect to={this.props.redirectPath}/>;
     }
 
     const formElementsArray = [];
@@ -131,41 +134,42 @@ class Auth extends Component {
         changed={(event) => this.inputChangedHandler(event, formElement.id)}
       />
     ));
-    if (this.props.loading){
-        form = <Spinner/>
+    if (this.props.loading) {
+      form = <Spinner />;
     }
 
-    let errorMessage= null;
-    if(this.props.error){
-    errorMessage = (<p>{(this.props.error.message).split("_").join(" ")}</p>)
+    let errorMessage = null;
+    if (this.props.error) {
+      errorMessage = <p>{this.props.error.message.split("_").join(" ")}</p>;
     }
     return (
       <div className={classes.Auth}>
         {authRedirect}
-          {errorMessage}
-          {console.log(this.props.token)}
+        {errorMessage}
+
         <form onSubmit={this.submitHandler}>
           {form}
           <Button btnType="Success">SUBMIT</Button>
         </form>
-        <Button 
-        clicked ={this.switchModeHandler} 
-        btnType="Danger">
+        <Button clicked={this.switchModeHandler} btnType="Danger">
           SWITCH TO {this.state.isSignUp ? "SIGN IN" : "SIGN UP"}
         </Button>
-     
       </div>
     );
   }
 }
-const mapStateToProps = state => ({
-    loading:state.auth.loading,
-    error:state.auth.error,
-    token: state.auth.token
- });
+const mapStateToProps = (state) => ({
+  loading: state.auth.loading,
+  error: state.auth.error,
+  token: state.auth.token !== null,
+  buildingBuilder: state.burgerBuilder.building,
+  redirectPath:state.auth.redirectPath
+
+});
 const mapDispatchToProps = (dispatch) => {
   return {
-    onAuth: (email, password, isSignUp) => dispatch(auth(email, password,isSignUp)),
+    onAuth: (email, password, isSignUp) =>dispatch(auth(email, password, isSignUp)),
+    settingAuthRedirectPath:(path)=>dispatch(setAuthRedirectPath(path))
   };
 };
 

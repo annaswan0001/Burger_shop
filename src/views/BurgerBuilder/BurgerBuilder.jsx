@@ -7,24 +7,29 @@ import OrderSummary from "../../components/Burger/OrderSummery/OrderSummery";
 import axios from "../../axios-orders";
 import Spinner from "../../components/UI/Spinner/Spinner";
 import withError from "../../HOC/WithErrorHandler";
-import {connect} from 'react-redux'
-import {addIngredient,initIngredients, removeIngredient} from '../../store/actions/burgerBuilderAction'
-import {purchaseInit} from '../../store/actions/orderAction'
+import { connect } from "react-redux";
+import {
+  addIngredient,
+  initIngredients,
+  removeIngredient,
+} from "../../store/actions/burgerBuilderAction";
+import { purchaseInit } from "../../store/actions/orderAction";
+import { setAuthRedirectPath} from "../../store/actions/authAction";
+
 class BurgerBuilder extends React.Component {
   state = {
     purchasing: false,
   };
-  _isMounted = false;
 
   componentDidMount() {
-    this._isMounted = true;
-    this.props.initIngredients()
-
+    if(!this.props.building){
+      this.props.initIngredients();
+    }
   }
 
-  checkPurchaseble = ingredientsForPurchase => {
+  checkPurchaseble = (ingredientsForPurchase) => {
     const summ = Object.keys(ingredientsForPurchase)
-      .map(key => {
+      .map((key) => {
         return ingredientsForPurchase[key];
       })
       .reduce((arr, el) => {
@@ -33,9 +38,14 @@ class BurgerBuilder extends React.Component {
     return summ > 0;
   };
 
-
   purchaseHandler = () => {
-    this.setState({ purchasing: true });
+    if (this.props.token){
+      this.setState({ purchasing: true });
+    }else{
+      this.props.setAuthRedirectPath("/checkout")
+      this.props.history.push("/auth")
+    }
+
   };
 
   purchaseCancel = () => {
@@ -43,14 +53,13 @@ class BurgerBuilder extends React.Component {
   };
 
   purchaseContinue = () => {
-    this.props.purchaseInit()
-    this.props.history.push("/checkout")
-    
+    this.props.purchaseInit();
+    this.props.history.push("/checkout");
   };
 
-    componentWillUnmount() {
-      this._isMounted = false;
-    }
+  componentWillUnmount() {
+    this._isMounted = false;
+  }
 
   render() {
     let stateForDisabled = { ...this.props.ingredients };
@@ -72,8 +81,7 @@ class BurgerBuilder extends React.Component {
       orderSummery = <Spinner />;
     }
 
-
-    let burger = this.props.spinner ? <Spinner /> : null
+    let burger = this.props.spinner ? <Spinner /> : null;
 
     burger = this.props.error ? (
       <div>Ingredients cant be loaded</div>
@@ -92,6 +100,7 @@ class BurgerBuilder extends React.Component {
             add={this.props.addIngredient}
             delete={this.props.removeIngredient}
             purchaseHandler={this.purchaseHandler}
+            token={this.props.token}
           />
         </React.Fragment>
       );
@@ -109,12 +118,20 @@ class BurgerBuilder extends React.Component {
     );
   }
 }
-const mapStateToProps= (state) =>({
-  ingredients:state.burgerBuilder.ingredients,
-  totalPrice:state.burgerBuilder.totalPrice,
-  error:state.burgerBuilder.error,
-  spinner:state.burgerBuilder.spinner
-})
+const mapStateToProps = (state) => ({
+  ingredients: state.burgerBuilder.ingredients,
+  totalPrice: state.burgerBuilder.totalPrice,
+  error: state.burgerBuilder.error,
+  spinner: state.burgerBuilder.spinner,
+  token: state.auth.token,
+  redirectPath: state.auth.redirectPath,
+  building:state.burgerBuilder.building
+});
 
-
-export default connect(mapStateToProps, {purchaseInit,initIngredients, addIngredient, removeIngredient})(withError(BurgerBuilder, axios));
+export default connect(mapStateToProps, {
+  purchaseInit,
+  initIngredients,
+  addIngredient,
+  removeIngredient,
+  setAuthRedirectPath
+})(withError(BurgerBuilder, axios));

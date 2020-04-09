@@ -29,7 +29,7 @@ const buildControls = props => (
       disabled={!props.purchaseble}
       className={classes.OrderButton}
     >
-      Order
+      {props.token? "Order": "Sign Up to order"}
     </button>
   
   </div>

@@ -12,7 +12,8 @@ const initialState = {
   ingredients: null,
   totalPrice: 5,
   spinner: false,
-  error: false
+  error: false,
+  building:false
 };
 
 export default (state = initialState, action) => {
@@ -20,6 +21,7 @@ export default (state = initialState, action) => {
     case actionTypes.ADD_INGREDIENTS:
       return {
         ...state,
+        building:true,
         ingredients : {
             ...state.ingredients,
             [action.igredientName]: state.ingredients[action.igredientName] + 1,
@@ -30,6 +32,7 @@ export default (state = initialState, action) => {
     case actionTypes.REMOVE_INGREDIENTS:
       return {
         ...state,
+        building:true,
         ingredients:{
             ...state.ingredients,
             [action.igredientName]: state.ingredients[action.igredientName] - 1,
@@ -47,7 +50,8 @@ export default (state = initialState, action) => {
           },
           totalPrice:5,
           error:true,
-          spinner:false
+          spinner:false,
+          building:false
         };
         case actionTypes.FETCH_INGREDIENT_FAILED:
           return {
@@ -61,6 +65,11 @@ export default (state = initialState, action) => {
               error:false,
               spinner:true
             };
+        case actionTypes.AUTH_LOGOUT:
+          return {
+            ...state,
+            building:false
+          };
     default:
       return state;
   }
