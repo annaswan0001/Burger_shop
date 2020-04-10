@@ -12,8 +12,8 @@ export default function SideDrawer(props) {
     }
   return (
     <React.Fragment>
-      <Backdrop show={props.open} clicked={props.handleSideDrawer}/>
-      <div className={ attachedClasses.join(" ")}>
+      <Backdrop show={props.open} clicked={props.handleSideDrawer} />
+      <div className={ attachedClasses.join(" ")} onClick={props.handleSideDrawer}>
         <div className={classes.Logo}>
           <Logo />
         </div>

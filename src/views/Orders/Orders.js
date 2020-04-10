@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-
+import { Route, Redirect } from "react-router-dom";
 import Order from '../../components/Order/Order';
 import axios from '../../axios-orders';
 import withErrorHandler from '../../HOC/WithErrorHandler';
@@ -13,14 +13,22 @@ class Orders extends Component {
         loading: true
     }
 
-    componentDidMount() {
-     this.props.onAuthCheckState()
+    componentWillMount() {
+        console.log("order")
+        // this.props.onAuthCheckState()
+        // // if(!this.props.token){
+        // //     this.props.history.push('/')
+        // // }
      
-    //  this.props.onFetchOrders(this.props.token)
+     this.props.onFetchOrders(this.props.token, this.props.userId)
  
     }
  
     render () {
+        let redirect = null
+        // if(!this.props.token){
+        //     redirect=<Redirect to="/"/>
+        // }
         let orders = <Spinner />;
         if ( !this.props.loading ) {
             orders = this.props.orders.map( order => (
@@ -32,6 +40,7 @@ class Orders extends Component {
         }
         return (
             <div>
+                {/* {redirect} */}
                 {orders}
             </div>
         );
