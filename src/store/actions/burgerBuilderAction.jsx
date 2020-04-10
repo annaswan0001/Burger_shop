@@ -24,20 +24,11 @@ export const removeIngredient = (igredientName) => ({
   export const fetchIngredient = () => ({
     type: actionsType.FETCH_INGREDIENT,
   })
-export const initIngredients = ()=> (dispatch)=>{
   
-  dispatch(fetchIngredient())
-  
-
-    axios
-    .get("https://burgershop-588e7.firebaseio.com/ingredients.json")
-    .then(res => {
-      dispatch(setIngredients(res.data ))
-    })
-    .catch(err => {
-      dispatch(fetchIngredientFailed())
-    });
- 
+export const initIngredients = ()=>{
+  return({
+    type:actionsType.INIT_INGREDIENTS_SAGA
+  })
 
 }
 
