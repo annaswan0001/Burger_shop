@@ -24,11 +24,11 @@ export const authFail = (error) => {
 };
 
 export const authLogout = () => {
-  localStorage.removeItem("token");
-  localStorage.removeItem("expirationDate");
-  localStorage.removeItem("userId");
+  // localStorage.removeItem("token");
+  // localStorage.removeItem("expirationDate");
+  // localStorage.removeItem("userId");
   return {
-    type: actionTypes.AUTH_LOGOUT,
+    type: actionTypes.AUTH_SAGA_LOGOUT,
   };
 };
 
@@ -88,11 +88,12 @@ export const authCheckState = () => (dispatch) => {
       console.log("время",(expirationDate.getTime()- new Date().getTime())/1000)
     }
     else{
-      dispatch.authLogout()
+      dispatch(authLogout())
     }
   }
   else{
     console.log("no token")
+    dispatch(authLogout())
   }
 };
 
