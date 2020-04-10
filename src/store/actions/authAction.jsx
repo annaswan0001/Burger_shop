@@ -31,6 +31,14 @@ export const authLogout = () => {
     type: actionTypes.AUTH_SAGA_LOGOUT,
   };
 };
+export const authLogoutRedux = () => {
+  // localStorage.removeItem("token");
+  // localStorage.removeItem("expirationDate");
+  // localStorage.removeItem("userId");
+  return {
+    type: actionTypes.AUTH_LOGOUT,
+  };
+};
 
 export const checkAuthTimeout = (expirationTime) => (dispatch) => {
   setTimeout(() => {
