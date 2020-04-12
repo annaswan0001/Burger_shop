@@ -1,5 +1,4 @@
-import React from "react";
-import BurgerBuilder from "../../views/BurgerBuilder/BurgerBuilder";
+import React, {useState} from "react";
 import Toolbar from "../../components/Navigation/Toolbar/Toolbar";
 import SideDrawer from "../../components/Navigation/SideDrawer/SideDrawer";
 import classes from "./Layout.module.css";

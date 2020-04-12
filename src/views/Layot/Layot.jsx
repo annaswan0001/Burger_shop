@@ -1,17 +1,15 @@
 import React, {useState} from "react";
-import BurgerBuilder from "../../views/BurgerBuilder/BurgerBuilder";
 import Toolbar from "../../components/Navigation/Toolbar/Toolbar";
 import SideDrawer from "../../components/Navigation/SideDrawer/SideDrawer";
 import classes from "./Layout.module.css";
 
+
 const Layot = (props) => {
+
   const [showSideDrawer,sideDrawerHandle ] = useState(false)
  
-
-  handleSideDrawer = () => {
-    sideDrawerHandle (prevState => {
-      return { showSideDrawer: !prevState.showSideDrawer };
-    });
+  const handleSideDrawer = () => {
+    sideDrawerHandle (!showSideDrawer)
   };
     return (
       <React.Fragment>
