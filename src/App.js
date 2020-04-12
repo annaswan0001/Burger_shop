@@ -1,4 +1,4 @@
-import React, {useEffect} from "react";
+import React, {useEffect, Suspense} from "react";
 import { Route, Switch, Redirect } from "react-router-dom";
 import { connect } from "react-redux";
 import { authCheckState } from "./store/actions/authAction";
@@ -29,7 +29,7 @@ const App = (props) =>{
   let routes = (
     <Switch>
       <Route exact path="/" component={BurgerBuilder} />
-      <Route path="/auth" component={Auth} />
+      <Route path="/auth" render={props => <Auth {...props} />} />
       <Redirect to="/" />
     </Switch>
   );
@@ -38,16 +38,16 @@ const App = (props) =>{
     routes = (
       <Switch>
         <Route exact path="/" component={BurgerBuilder} />
-        <Route path="/orders" component={Orders} />
-        <Route path="/checkout" component={Checkout} />
-        <Route path="/logout" component={Logout} />
-        <Route path="/auth" component={Auth} />
+        <Route path="/orders" render={props => <Orders {...props} />} />
+        <Route path="/checkout" render={props => <Checkout {...props} />} />
+        <Route path="/logout" render={props => <Logout {...props} />} />
+        <Route path="/auth" render={props => <Auth {...props} />} />
         <Redirect to="/" />
       </Switch>
     );
   }
   return (
-    <Layot>{routes}</Layot>
+    <Layot><Suspense fallback={<p>Loading...</p>}>{routes}</Suspense></Layot>
   )
 }
 
