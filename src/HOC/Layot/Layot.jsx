@@ -5,35 +5,27 @@ import SideDrawer from "../../components/Navigation/SideDrawer/SideDrawer";
 import classes from "./Layout.module.css";
 import { connect } from "react-redux";
 
-class Layot extends React.Component {
-  state = {
-    showSideDrawer: false
+const Layot = (props) => {
+
+  const [showSideDrawer, setShowSideDrawer] = useState(false)
+
+  const handleSideDrawer = () => {
+    setShowSideDrawer(!showSideDrawer)
   };
 
-  handleSideDrawer = () => {
-    this.setState(prevState => {
-      return { showSideDrawer: !prevState.showSideDrawer };
-    });
-  };
-//   sideDrawerCloseHandler=()=>{
-//     this.setState({showSideDrawer:false})
-//   }
-
-  render() {
-    const { props } = this;
 
     return (
       <React.Fragment>
         <div>
           <Toolbar 
-          token={this.props.token}
-          clicked={this.handleSideDrawer}/>
-          <SideDrawer token={this.props.token} open={this.state.showSideDrawer} handleSideDrawer={this.handleSideDrawer} />
+          token={props.token}
+          clicked={handleSideDrawer}/>
+          <SideDrawer token={props.token} open={showSideDrawer} handleSideDrawer={handleSideDrawer} />
         </div>
         <main className={classes.Content}>{props.children}</main>
       </React.Fragment>
     );
-  }
+  
 }
 
 const mapStateToProps = (state) =>({
