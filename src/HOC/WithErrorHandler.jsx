@@ -1,58 +1,41 @@
-import React, { Component } from "react";
+import React, { useState, useEffect } from "react";
 import Modal from "../components/UI/Modal/Modal";
 
 const withErrorHandler = (WrappedComponent, axios) => {
-  return class extends Component {
-    state = {
-      error: null
-    };
-    constructor(props) {
-      super(props);
-      this.requestInterceptor = axios.interceptors.request.use(req => {
-        this.setState({ error: null });
-        return req;
-      });
-      this.responceInterceptor = axios.interceptors.response.use(
-        res => res,
-        error => {
-          this.setState({ error: error });
-        }
-      );
-    }
+  return (props) => {
+    const [error, setError] = useState(null);
 
-    errorConfirmedHandler = () => {
-      this.setState({ error: null });
+     //Если мы хотим, чтобы ф-ция запускалась до рендеринга(СomponentWillMount -просто добавляем ее в  тело функции без эффектов)
+    const requestInterceptor = axios.interceptors.request.use((req) => {
+      setError(null);
+      return req;
+    });
+
+    const responceInterceptor = axios.interceptors.response.use((res) => res,(err) => {
+        setError(err);
+      }
+    );
+
+    const errorConfirmedHandler = () => {
+      setError(null);
     };
 
-    componentWillUnmount() {
-      console.log("Will unm", this.requestInterceptor, this.responceInterceptor)
-      axios.interceptors.request.eject(this.requestInterceptor);
-      axios.interceptors.response.eject(this.responceInterceptor);
-    }
+    useEffect(() => {
+      return () => {
+        axios.interceptors.request.eject(requestInterceptor);
+        axios.interceptors.response.eject(responceInterceptor);
+      };
+    }, [requestInterceptor,responceInterceptor]);//очищаем эффекты чтобы не вызвать утечку памяти
 
-    render() {
-      return (
-        <React.Fragment>
-          <Modal
-            show={this.state.error}
-            modalClosed={this.errorConfirmedHandler}
-          >
-            {this.state.error ? this.state.error.message : null}
-          </Modal>
-          <WrappedComponent {...this.props} />
-        </React.Fragment>
-      );
-    }
+    return (
+      <React.Fragment>
+        <Modal show={error} modalClosed={errorConfirmedHandler}>
+          {error ? error.message : null}
+        </Modal>
+        <WrappedComponent {...props} />
+      </React.Fragment>
+    );
   };
 };
-
-// const  WithErrorHandler = (WrappedComponent, axios) => {
-//   return (props)=>(
-//     <React.Fragment>
-//     <Modal show={true}>Hiiii</Modal>
-//     <WrappedComponent {...props}/>
-//     </React.Fragment>
-//   )
-// }
 
 export default withErrorHandler;
