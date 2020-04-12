@@ -8,10 +8,7 @@ import axios from "../../axios-orders";
 import Spinner from "../../components/UI/Spinner/Spinner";
 import withError from "../../HOC/WithErrorHandler";
 import { connect } from "react-redux";
-import {
-  addIngredient,
-  initIngredients,
-  removeIngredient,
+import {addIngredient,initIngredients,removeIngredient,
 } from "../../store/actions/burgerBuilderAction";
 import { purchaseInit } from "../../store/actions/orderAction";
 import { setAuthRedirectPath} from "../../store/actions/authAction";
