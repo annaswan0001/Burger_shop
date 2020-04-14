@@ -13,7 +13,7 @@ const  Auth = (props)=> {
     email: {
       elementType: "input",
       elementConfig: {
-        type: "email",
+        type: "text",
         placeholder: "Mail Address",
       },
       value: "",
