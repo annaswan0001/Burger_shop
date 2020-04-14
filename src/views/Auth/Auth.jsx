@@ -46,7 +46,7 @@ const  Auth = (props)=> {
     if(!props.buildingBuilder && props.redirectPath!=="/"){
       setAuthRedirectPath("/")
     }
-  }, [])
+  }, [props.buildingBuilder,props.redirectPath,setAuthRedirectPath])
 
 
 

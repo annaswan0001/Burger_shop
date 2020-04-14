@@ -1,27 +1,17 @@
-import React from "react";
+import React, {useEffect, useState} from "react";
 import classes from "./Modal.module.css";
 import Backdrop from "../Backdrop/Backdrop";
 
 
-export default class Modal extends React.Component {
-  constructor(props) {
-    super(props);
-  }
-shouldComponentUpdate(nextProps,nexState){
-    return nextProps.show != this.props.show || nextProps.children !== this.props.children
-}
 
-  render() {
-    const {
-      props,
-    } = this;
+const Modal = (props)=>  {
 
     return (
       
-
       <React.Fragment>
         <Backdrop show={props.show} clicked={props.modalClosed} />
         <div
+
           className={classes.Modal}
           style={{
             transform: props.show ? "translateY(0)" : "translateY(-100vh)",
@@ -29,8 +19,10 @@ shouldComponentUpdate(nextProps,nexState){
           }}
         >
           {props.children}
+          {console.log("memo")}
         </div>
       </React.Fragment>
     );
-  }
 }
+// export default Modal
+export default  React.memo(Modal, (prevProps, nextProps) => nextProps.show === prevProps.show && nextProps.children === prevProps.children)

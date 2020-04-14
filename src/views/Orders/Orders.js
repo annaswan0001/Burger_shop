@@ -13,7 +13,7 @@ const Orders = (props)=> {
 
     useEffect(() => {
         props.onAuthCheckState()
-    }, [])
+    }, [props.onAuthCheckState])
   
 
         let orders = <Spinner />;

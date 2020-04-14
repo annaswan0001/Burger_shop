@@ -7,7 +7,7 @@ import { authLogout } from "../../../store/actions/authAction";
 const Logout = (props) => {
   useEffect(() => {
     props.authLogout();
-  }, []);
+  }, [props.authLogout]);
 
   return <Redirect to="/" />;
 };

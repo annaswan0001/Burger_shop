@@ -22,7 +22,7 @@ const BurgerBuilder = (props)=> {
     if(!props.building){
       props.initIngredients();
     }
-  }, [])
+  }, [props.initIngredients,props.building])
 
 
   const checkPurchaseble = (ingredientsForPurchase) => {
