@@ -1,0 +1,2 @@
+(this.webpackJsonpburger_shop=this.webpackJsonpburger_shop||[]).push([[6],{111:function(t,u,e){"use strict";e.r(u);var o=e(0),n=e.n(o),a=e(23),c=e(19),r=e(11);u.default=Object(c.b)(null,{authLogout:r.e})((function(t){return Object(o.useEffect)((function(){t.authLogout()}),[t.authLogout]),n.a.createElement(a.a,{to:"/"})}))}}]);
+//# sourceMappingURL=6.016d0266.chunk.js.map
