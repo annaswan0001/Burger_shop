@@ -1,6 +1,6 @@
 self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
-    "revision": "6885d96b6c88e02b1ec2789ccc7d6377",
+    "revision": "8490365f90ffbe90ff96ad461cf2de30",
     "url": "/Burger_shop/index.html"
   },
   {
@@ -8,7 +8,7 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/Burger_shop/static/css/3.4e4df72a.chunk.css"
   },
   {
-    "revision": "15c1bec1ad56083e9f40",
+    "revision": "0681160c2d4ae28967b0",
     "url": "/Burger_shop/static/css/4.81df807a.chunk.css"
   },
   {
@@ -32,8 +32,8 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/Burger_shop/static/js/3.1827d542.chunk.js"
   },
   {
-    "revision": "15c1bec1ad56083e9f40",
-    "url": "/Burger_shop/static/js/4.46ca165e.chunk.js"
+    "revision": "0681160c2d4ae28967b0",
+    "url": "/Burger_shop/static/js/4.9c113274.chunk.js"
   },
   {
     "revision": "1d08706d403b410bf74c",
@@ -48,8 +48,8 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/Burger_shop/static/js/main.6e693feb.chunk.js"
   },
   {
-    "revision": "fce5865e6d2511b377f8",
-    "url": "/Burger_shop/static/js/runtime-main.f4aa218a.js"
+    "revision": "a34281b2996d0c57c730",
+    "url": "/Burger_shop/static/js/runtime-main.f3eb282c.js"
   },
   {
     "revision": "b8503d262bffbfb7c67fd6762963e7d1",
