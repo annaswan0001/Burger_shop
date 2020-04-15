@@ -6,8 +6,8 @@ import classes from './ContactData.module.css';
 import axios from '../../../axios-orders';
 import WithError from '../../../HOC/WithErrorHandler'
 import {connect} from 'react-redux'
-import {purchaseBurgerStart} from '../../../store/actions/orderAction'
-import {reseteIngredients} from '../../../store/actions/burgerBuilderAction'
+import {purchaseBurgerStart} from '../../../store/actions/orderAction.ts'
+import {reseteIngredients} from '../../../store/actions/burgerBuilderAction.ts'
 
 const  ContactData =(props)=> {
 

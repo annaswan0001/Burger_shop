@@ -1,5 +1,5 @@
 import {put} from 'redux-saga/effects'
-import {fetchIngredient, setIngredients, fetchIngredientFailed} from '../actions/burgerBuilderAction'
+import {fetchIngredient, setIngredients, fetchIngredientFailed} from '../actions/burgerBuilderAction.ts'
 import axios from '../../axios-orders'
 
 export function* initIngredientsSaga(action) {

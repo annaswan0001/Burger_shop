@@ -9,8 +9,8 @@ import Spinner from "../../components/UI/Spinner/Spinner";
 import withError from "../../HOC/WithErrorHandler";
 import { connect } from "react-redux";
 import {addIngredient,initIngredients,removeIngredient,
-} from "../../store/actions/burgerBuilderAction";
-import { purchaseInit } from "../../store/actions/orderAction";
+} from "../../store/actions/burgerBuilderAction.ts";
+import { purchaseInit } from "../../store/actions/orderAction.ts";
 import { setAuthRedirectPath} from "../../store/actions/authAction";
 
 const BurgerBuilder = (props)=> {

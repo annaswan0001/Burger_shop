@@ -5,7 +5,7 @@ import axios from '../../axios-orders';
 import withErrorHandler from '../../HOC/WithErrorHandler';
 import {connect} from 'react-redux'
 import Spinner from '../../components/UI/Spinner/Spinner';
-import {fetchOrders} from '../../store/actions/orderAction'
+import {fetchOrders} from '../../store/actions/orderAction.ts'
 import {authCheckStateOrder} from '../../store/actions/authAction'
 
 

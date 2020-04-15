@@ -1,6 +1,6 @@
 import * as actionTypes from "./actionType";
 import axios from "axios";
-import {fetchOrders} from './orderAction'
+import {fetchOrders} from './orderAction.ts'
 
 export const authStart = () => {
   return {

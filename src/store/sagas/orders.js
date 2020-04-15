@@ -7,7 +7,7 @@ import {
   fetchOrdersStart,
   fetchOrdersSuccess,
   fetchOrdersFail
-} from "../actions/orderAction";
+} from "../actions/orderAction.ts";
 
 export function* purchaseBurgerStart(action) {
   yield put(purchaseBurgerRequest());
