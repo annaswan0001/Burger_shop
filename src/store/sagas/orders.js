@@ -36,6 +36,7 @@ export function* fetchOrdersSaga (action){
                         id: key
                     } );
                 }
+          console.log(fetchedOrders)
        yield put (fetchOrdersSuccess(fetchedOrders))
             }catch(err){
                 yield put (fetchOrdersFail(err));

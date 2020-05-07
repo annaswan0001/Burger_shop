@@ -3,8 +3,10 @@ import { Route, Switch, Redirect } from "react-router-dom";
 import { connect } from "react-redux";
 import { authCheckState } from "./store/actions/authAction";
 //Components
+import Select from './views/Form/Select'
 import Layot from "./HOC/Layot/Layot";
 import BurgerBuilder from "./views/BurgerBuilder/BurgerBuilder";
+import AsynkSelect from './views/AsynkSelect/AsynkSelect'
 
 const Orders = React.lazy(() => {
   return import("./views/Orders/Orders");
@@ -39,6 +41,8 @@ const App = (props) =>{
       <Switch>
         <Route exact path="/" component={BurgerBuilder} />
         <Route path="/orders" render={props => <Orders {...props} />} />
+        <Route path="/select" render={props => <Select {...props} />} />
+        <Route path="/asynkselect" render={props => <AsynkSelect {...props} />} />
         <Route path="/checkout" render={props => <Checkout {...props} />} />
         <Route path="/logout" render={props => <Logout {...props} />} />
         <Route path="/auth" render={props => <Auth {...props} />} />
