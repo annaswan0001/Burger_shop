@@ -8,7 +8,7 @@ import {
   authStart,
   authFail
 } from "../actions/authAction";
-import axios from "axios";
+import axios from "../../axios-login";
 export function* logoutSaga(action) {
   yield call ([localStorage,"removeItem"],"token");
   yield call ([localStorage, "removeItem"],"expirationDate");
@@ -30,10 +30,10 @@ export function* authSaga(action) {
     returnSecureToken: true,
   };
   let url =
-    "https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=AIzaSyDvzZlbgQc1kfjiZXRuteDc8-reRPb2fN4";
+    ":signUp?key=AIzaSyDvzZlbgQc1kfjiZXRuteDc8-reRPb2fN4";
   if (!action.isSignUp) {
     url =
-      "https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=AIzaSyDvzZlbgQc1kfjiZXRuteDc8-reRPb2fN4";
+      ":signInWithPassword?key=AIzaSyDvzZlbgQc1kfjiZXRuteDc8-reRPb2fN4";
   }
   try {
     const response = yield axios.post(url, data);
@@ -46,6 +46,7 @@ export function* authSaga(action) {
     yield put(authSuccess(response.data.idToken, response.data.localId));
     yield put(checkAuthTimeout(response.data.expiresIn));
   } catch (err) {
+    if(err.response)
     yield put(authFail(err.response.data.error));
   }
 }

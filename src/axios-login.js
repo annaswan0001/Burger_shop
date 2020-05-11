@@ -1,6 +1,7 @@
 import axios from 'axios'
 
 const instance= axios.create({
-    baseURL: "https://burgershop-588e7.firebaseio.com/"
+    baseURL: "https://identitytoolkit.googleapis.com/v1/accounts"
 })
+
 export default instance;

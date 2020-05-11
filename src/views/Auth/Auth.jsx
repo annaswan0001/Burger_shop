@@ -6,6 +6,8 @@ import classes from "./Auth.module.css";
 import { auth, setAuthRedirectPath } from "../../store/actions/authAction";
 import Spinner from "../../components/UI/Spinner/Spinner";
 import { Redirect } from "react-router-dom";
+import withError from '../../HOC/WithErrorHandler'
+import axios from '../../axios-login'
 
 const  Auth = (props)=> {
 
@@ -176,4 +178,6 @@ const mapDispatchToProps = (dispatch) => {
   };
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(Auth);
+// export default connect(mapStateToProps, mapDispatchToProps)(Auth);
+export default connect(mapStateToProps, mapDispatchToProps)(withError(Auth, axios));
+
