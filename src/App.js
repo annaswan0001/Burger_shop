@@ -20,6 +20,13 @@ const Auth = React.lazy(() => {
 const Logout = React.lazy(() => {
   return import("./views/Auth/Logout/Logout");
 });
+const FetchData = React.lazy(() => {
+  return import("./views/FetchData/FetchData");
+});
+
+const RelatedSelect = React.lazy(() => {
+  return import("./views/RelatedSelect/RelatedSelect");
+});
 
 
 const App = (props) =>{
@@ -43,6 +50,8 @@ const App = (props) =>{
         <Route path="/orders" render={props => <Orders {...props} />} />
         <Route path="/select" render={props => <Select {...props} />} />
         <Route path="/asynkselect" render={props => <AsynkSelect {...props} />} />
+        <Route path="/fetchData" render={props => <FetchData {...props} />} />
+        <Route path="/relatedselect" render={props => <RelatedSelect {...props} />} />
         <Route path="/checkout" render={props => <Checkout {...props} />} />
         <Route path="/logout" render={props => <Logout {...props} />} />
         <Route path="/auth" render={props => <Auth {...props} />} />

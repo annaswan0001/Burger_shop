@@ -1,5 +1,5 @@
 import React from 'react';
-
+import Select from 'react-select';
 import classes from './Input.module.css';
 
 const input = ( props ) => {
@@ -43,6 +43,24 @@ if (props.invalid && props.touched) {
                 </select>
             );
             break;
+        case ( 'reactSelect' ):
+            console.table(props.elementConfig.options)
+                inputElement = (
+                 
+                    <Select
+                    // className={inputClasses.join(" ")}
+                    defaultValue={props.value}
+                    isDisabled={props.elementConfig.isDisabled}
+                    isLoading={props.elementConfig.isLoading}
+                    isClearable={props.elementConfig.isClearable}
+                    isSearchable={props.elementConfig.isSearchable}
+                    name="color"
+                    options={props.elementConfig.options}
+                  />
+                );
+                break;
+
+
         default:
             inputElement = <input
                 className={inputClasses.join(" ")}
