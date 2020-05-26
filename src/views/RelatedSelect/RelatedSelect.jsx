@@ -128,4 +128,4 @@ const mapStateToProps = (state) => ({
   child: state.child,
 });
 
-export default connect(mapStateToProps, { childAction })(Form);
+export default connect(mapStateToProps, {childAction })(Form);

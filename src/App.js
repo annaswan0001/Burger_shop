@@ -27,6 +27,9 @@ const FetchData = React.lazy(() => {
 const RelatedSelect = React.lazy(() => {
   return import("./views/RelatedSelect/RelatedSelect");
 });
+const InputDebounced = React.lazy(() => {
+  return import("./views/InputDebouced/InputDebounced");
+});
 
 
 const App = (props) =>{
@@ -52,6 +55,7 @@ const App = (props) =>{
         <Route path="/asynkselect" render={props => <AsynkSelect {...props} />} />
         <Route path="/fetchData" render={props => <FetchData {...props} />} />
         <Route path="/relatedselect" render={props => <RelatedSelect {...props} />} />
+        <Route path="/inputDebounced" render={props => <InputDebounced {...props} />} />
         <Route path="/checkout" render={props => <Checkout {...props} />} />
         <Route path="/logout" render={props => <Logout {...props} />} />
         <Route path="/auth" render={props => <Auth {...props} />} />

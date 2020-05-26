@@ -11,6 +11,7 @@ const navigationItems = (props) => (
         {props.token ? <NavigationItem link="/asynkselect">AsynkSelect</NavigationItem> : null}
         {props.token ? <NavigationItem link="/relatedselect">Related Select</NavigationItem> : null}
         {props.token ? <NavigationItem link="/fetchData">fetchData</NavigationItem> : null}
+        {props.token ? <NavigationItem link="/inputDebounced">inputDebounced</NavigationItem> : null}
         {props.token ? <NavigationItem link="/logout">Log out</NavigationItem>:
         <NavigationItem link="/auth">Auth</NavigationItem> }
 
