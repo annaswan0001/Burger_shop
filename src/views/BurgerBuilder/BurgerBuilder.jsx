@@ -88,6 +88,8 @@ const BurgerBuilder = (props)=> {
       burger = (
         <React.Fragment>
           <Burger ingredients={props.ingredients} />
+          
+        
           <BuildControls
             purchaseble={checkPurchaseble(props.ingredients)}
             price={props.totalPrice}

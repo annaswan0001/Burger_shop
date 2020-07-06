@@ -14,16 +14,18 @@ import './index.css';
 import App from './App';
 
 
-const composeEnhancers = process.env.NODE_ENV === 'development' ? window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ : null || compose;
+// const composeEnhancers = process.env.NODE_ENV === 'development' ? window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ : null || compose;
 
 const sagaMiddleware = createSagaMiddleware()
 //1) const sagaMiddleware = createSagaMiddleware()
 //2) added to applyMiddleware
 //3) sagaMiddleware.run(rootSaga)
 
-const store = createStore(rootReducer, composeEnhancers(
+const store = createStore(rootReducer, 
+    // composeEnhancers(
     applyMiddleware(thunk,sagaMiddleware )
-));
+// )
+);
 
 sagaMiddleware.run(watchAuth)
 sagaMiddleware.run(watchBurgerBuilder)

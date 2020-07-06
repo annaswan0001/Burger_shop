@@ -1,5 +1,5 @@
 import * as actionTypes from "../actions/actionType";
-const initialState = {
+export const initialState = {
   token: null,
   userId: null,
   loading: false,
@@ -20,7 +20,7 @@ export default (state = initialState, action) => {
       };
 
     case actionTypes.AUTH_FAIL:
-      return { ...state, loading: false, error: action.error };
+      return { ...state, loading: false, error: action.error.message };
     case actionTypes.AUTH_LOGOUT:
       return { ...state, token: null, userId: null };
     default:
